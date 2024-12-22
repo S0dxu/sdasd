@@ -62,7 +62,7 @@ app.post("/upload", upload.array("product", 10), (req, res) => {
     }
 
     const imageUrls = req.files.map(file => {
-        const fileUrl = `https://ah873hdsha98h2wuisah9872.onrender.com/images/${file.filename}`;
+        const fileUrl = `https://ah873hdsha98h2wuisah9872-nw0e.onrender.com/images/${file.filename}`;
         console.log("Generated image URL:", fileUrl);
         return fileUrl;
     });
