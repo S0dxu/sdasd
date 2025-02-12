@@ -29,6 +29,7 @@ const storage = multer.diskStorage({
         return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
     }
 });
+const upload = multer ({ storage:storage });
 
 // create middelware to fetch user auth
 const fetchUser = async (req, res, next) => {
@@ -49,24 +50,15 @@ const fetchUser = async (req, res, next) => {
     }
 };
 
-const upload = multer ({ storage:storage });
-
 // upload endpoiut for images
 app.use("/images", express.static("upload/images"));
 
 app.post("/upload", upload.array("product", 10), (req, res) => {
-    console.log("Received files:", req.files);
-
     if (!req.files || req.files.length === 0) {
         return res.status(400).json({ success: 0, message: "No files uploaded" });
     }
 
-    const imageUrls = req.files.map(file => {
-        const fileUrl = `https://ah873hdsha98h2wuisah9872-nw0e.onrender.com/images/${file.filename}`;
-        console.log("Generated image URL:", fileUrl);
-        return fileUrl;
-    });
-
+    const imageUrls = req.files.map(file => `http://localhost:${port}/images/${file.filename}`);
     res.json({ success: 1, image_urls: imageUrls });
 });
 
