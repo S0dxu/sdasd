@@ -160,14 +160,14 @@ app.post("/removeproduct", async (req, res) => {
 // API for getting all products
 app.get("/allproducts", async (req, res) => {
     try {
-        let products = await Product.find({}).sort({ date: -1 });
-        console.log("All Products Fetched in Descending Order of Date");
+        let products = await Product.find({}).sort({ name: 1 });
         res.send(products);
     } catch (error) {
         console.error("Error fetching products:", error);
         res.status(500).send({ error: "Server Error" });
     }
 });
+
 
 // schema createing for User model
 const Users = mongoose.model("Users", new mongoose.Schema({
